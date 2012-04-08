@@ -9,8 +9,8 @@ session_start();
 // database connection config
 $dbHost = 'localhost';
 $dbUser = 'root';
-$dbPass = '';
-$dbName = 'phpwebco_shop';
+$dbPass = 'madhukar';
+$dbName = 'plaincart';
 
 // setting up the web root and server root for
 // this shopping cart application

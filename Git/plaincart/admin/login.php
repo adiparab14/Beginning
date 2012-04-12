@@ -48,7 +48,7 @@ if (isset($_POST['txtUserName'])) {
            <tr> 
             <td width="100" align="right">Password</td>
             <td width="10" align="center">:</td>
-            <td><input name="txtPassword" type="password" class="box" id="txtPassword" value="admin" size="10"></td>
+            <td><input name="txtPassword" type="password" class="box" id="txtPassword" value="" size="10"></td>
            </tr>
            <tr> 
             <td colspan="2">&nbsp;</td>

@@ -11,7 +11,7 @@ $dbHost = 'localhost';
 $dbUser = 'root';
 $dbPass = 'madhukar';
 $dbName = 'plaincart';
-
+echo "Aditya";
 // setting up the web root and server root for
 // this shopping cart application
 $thisFile = str_replace('\\', '/', __FILE__);

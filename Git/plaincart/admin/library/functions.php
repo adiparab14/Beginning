@@ -29,6 +29,8 @@ function doLogin()
 	
 	$userName = $_POST['txtUserName'];
 	$password = $_POST['txtPassword'];
+	//echo $userName;
+	//echo $password;
 	
 	// first, make sure the username & password are not empty
 	if ($userName == '') {
@@ -39,9 +41,9 @@ function doLogin()
 		// check the database and see if the username and password combo do match
 		$sql = "SELECT user_id
 		        FROM tbl_user 
-				WHERE user_name = '$userName' AND user_password = PASSWORD('$password')";
+				WHERE user_name = '$userName' AND user_password = '$password'";
 		$result = dbQuery($sql);
-	
+		//echo "result";	
 		if (dbNumRows($result) == 1) {
 			$row = dbFetchAssoc($result);
 			$_SESSION['plaincart_user_id'] = $row['user_id'];

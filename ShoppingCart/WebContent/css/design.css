@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+table{
+    width: 400px;
+    test-align: center;
+}
+
+td{
+	width:200px;
+	text-align:center;	
+}
+
+#right
+{
+	text-align:right;
+}
+
+#center
+{
+	text-align:center;
+}

@@ -1,4 +1,4 @@
-<?php
+<?php	
 /*
 	Contain the common functions 
 	required in shop and admin pages

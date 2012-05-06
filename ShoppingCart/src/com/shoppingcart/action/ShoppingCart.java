@@ -20,6 +20,7 @@ import com.shoppingcart.dao.Dao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 public class ShoppingCart {
 
@@ -37,49 +38,68 @@ public class ShoppingCart {
 	
 	public void addProducts(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, SQLException
 	{
+		ProductBean bean = new ProductBean();
 		Dao d = new Dao();
-		ProductBean b = new ProductBean();
-		FileItemFactory factory = new DiskFileItemFactory();
+		//Adding from shrikanth technologies
+		 response.setContentType("text/html;charset=UTF-8");
+	        
+	            // Apache Commons-Fileupload library classes
+	            DiskFileItemFactory factory = new DiskFileItemFactory();
+	            ServletFileUpload sfu  = new ServletFileUpload(factory);
+
+	            if (! ServletFileUpload.isMultipartContent(request)) {
+	                System.out.println("sorry. No file uploaded");
+	                return;
+	            }
+
+	            // parse request
+	            
+				try {
+					List items = sfu.parseRequest(request);
+					
+					 	FileItem  name = (FileItem) items.get(3);
+			            bean.setName(name.getString());
+			            //String photoid =  name.getString();
+			            
+			            FileItem specification = (FileItem) items.get(4);
+			            bean.setSpecification(specification.getString());
+			            
+			            FileItem cost = (FileItem) items.get(5);
+			            bean.setCost(Integer.parseInt(cost.getString()));
+			            
+			           FileItem quantity = (FileItem) items.get(6);
+			           bean.setQuantity(Integer.parseInt(quantity.getString()));
+			            
+			           /* System.out.println("Name"+bean.getName());
+			            System.out.println("Speci"+bean.getSpecification());
+			            System.out.println("Cos"+bean.getCost());
+			            System.out.println("Qua"+bean.getQuantity());*/
+
+			            // get uploaded file
+			            bean.setIcon((FileItem) items.get(0));
+			            //FileItem file = (FileItem) items.get(0);
+			            d.addProduct(bean);  
+			            // Connect to Oracle
+			            
+				
+				
+				System.out.println("hello");
+				} catch (FileUploadException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NullPointerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	}
+	
+	public void retrieveProducts()
+	{
 		
-		// Create a new file upload handler
-		ServletFileUpload upload = new ServletFileUpload(factory);
-
-		// Parse the request
-		try {
-			List<FileItem>items = upload.parseRequest(request);
-			  b.setIcon((FileItem) items.get(0));
-			  b.setDisplay((FileItem) items.get(1));
-			  for(FileItem item:items)
-			  {
-				  if(item.getFieldName().equals("id"))
-				  b.setQuantity(Integer.parseInt(item.getString()));
-			  }
-			 // FileItem file = (FileItem) items.get(0);
-			  	d.addProduct(b);
-			  	Blob b1 = d.displayProduct(b);
-	            response.setContentType("image/jpeg");
-	            response.setContentLength( (int) b1.length());
-	            InputStream is = b1.getBinaryStream();
-	            OutputStream os = response.getOutputStream();
-	            byte buf[] = new byte[(int) b1.length()];
-	            is.read(buf);
-	            os.write(buf);
-	            os.close();
-	          
-		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 	
 	

@@ -58,6 +58,8 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		ProductBean b = new ProductBean();
+		Dao d = new Dao();
+		ShoppingCart s = new ShoppingCart();
 		//System.out.println(request.getParameter("id"));
 		String work = request.getParameter("work");
 		//System.out.println(work);
@@ -65,9 +67,6 @@ public class Controller extends HttpServlet {
 		//System.out.println(request.getParameter("password"));
 		if(work.equals("productadd"))
 		{
-			System.out.println(request.getAttribute("id"));
-			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-			ShoppingCart s = new ShoppingCart();
 			try {
 				s.addProducts(request, response);
 			} catch (NullPointerException e) {
@@ -77,8 +76,6 @@ public class Controller extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//
-			System.out.println("hello");
 		}
 
 		
@@ -87,7 +84,7 @@ public class Controller extends HttpServlet {
 			if(work.equals("adminLogin"))
 			{
 				//System.out.println("Hello");
-				ShoppingCart s = new ShoppingCart();
+				
 				try {
 					String message = s.verifyAdmin(request, response);
 					if(message.equalsIgnoreCase("Invalid Username") || message.equalsIgnoreCase("Invalid password"))
@@ -119,8 +116,9 @@ public class Controller extends HttpServlet {
 				{
 					request.getRequestDispatcher("/jsp/index.jsp").forward(request, response);
 				}
-		}
+		
 		
 			}
 
-}
+		}
+	}

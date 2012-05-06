@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form method="post"
-		action="<%=request.getContextPath()%>/Controller?work=productadd"
+		action="<%=request.getContextPath() %>/Controller?work=productadd"
 		enctype="multipart/form-data">
 		<input type="hidden" name="work" value="productadd">
 		<table>
@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>Specifications</td>
-				<td><textarea rows="2" cols="20"></textarea></td>
+				<td><textarea rows="2" cols="20" name="speci"></textarea></td>
 			</tr>
 			<tr>
 				<td>Cost</td>

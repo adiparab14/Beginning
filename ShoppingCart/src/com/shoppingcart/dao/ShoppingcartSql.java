@@ -4,7 +4,7 @@ public interface ShoppingcartSql {
 
 	String Select_Admin="SELECT * FROM ADMIN WHERE USERNAME = ?";
 	
-	String Insert_Product="INSERT INTO PRODUCTS(ICOM,DISPLAY,ID) VALUES (?,?,?)";
+	String Insert_Product="INSERT INTO PRODUCTS(NAME,ICOM) VALUES (?,?)";
 	
-	String Select_Product="SELECT ICOM,DISPLAY,ID FROM PRODUCTS WHERE ID=1002";
+	String Select_Product="SELECT ICOM,ID FROM PRODUCTS WHERE ID=?";
 }

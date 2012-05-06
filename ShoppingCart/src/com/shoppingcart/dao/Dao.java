@@ -79,13 +79,18 @@ public class Dao {
 		PreparedStatement pstmt = null;	
 		String message="";
 		try {
-			pstmt = conn.prepareStatement(ShoppingcartSql.Insert_Product);
-			//System.out.println(bean.getUsername());
-			pstmt.setBinaryStream(1,b.getIcon().getInputStream(),(int)b.getIcon().getSize());
-			pstmt.setBinaryStream(2,b.getDisplay().getInputStream());
-			pstmt.setInt(3, b.getQuantity());
-			pstmt.executeUpdate();
 			
+            //con.setAutoCommit(false);
+
+            pstmt = conn.prepareStatement(ShoppingcartSql.Insert_Product);
+            pstmt.setString(1, b.getName());
+            //pstmt.setString(2, phototitle);
+            // size must be converted to int otherwise it results in error
+            pstmt.setBinaryStream(2, b.getIcon().getInputStream(), (int) b.getIcon().getSize());
+            pstmt.executeUpdate();
+            //con.commit();
+            //con.close();
+           // out.println("Proto Added Successfully. <p> <a href='listphotos'>List Photos </a>");
 
 		}
 		catch(SQLException sqle){
@@ -119,15 +124,14 @@ public class Dao {
 		Blob b1 = null;
 		try {
 			pstmt = conn.prepareStatement(ShoppingcartSql.Select_Product);
-			//pstmt.setString(1, bean.getUsername());
+			pstmt.setInt(1, b.getQuantity());
 			ResultSet rs = pstmt.executeQuery();
 			//pstmt.setBinaryStream(1,b.getIcon().getInputStream());
-			//pstmt.setBinaryStream(2,b.getDisplay().getInputStream());
+			//pstmt.setBinaryStream(2,b.getDisplay().get	InputStream());
 			
 			while(rs.next()) {
 				b1 = rs.getBlob("icom");
-			
-						
+			    //System.out.println("A"+b1);
 			}
 			
 

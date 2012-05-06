@@ -57,26 +57,29 @@ public class ShoppingCart {
 				try {
 					List items = sfu.parseRequest(request);
 					
-					 	FileItem  name = (FileItem) items.get(3);
+						FileItem  id = (FileItem) items.get(3);
+						bean.setId(Integer.parseInt(id.getString()));
+					
+						FileItem  name = (FileItem) items.get(4);
 			            bean.setName(name.getString());
 			            //String photoid =  name.getString();
 			            
-			            FileItem specification = (FileItem) items.get(4);
+			            FileItem specification = (FileItem) items.get(5);
 			            bean.setSpecification(specification.getString());
 			            
-			            FileItem cost = (FileItem) items.get(5);
+			            FileItem cost = (FileItem) items.get(6);
 			            bean.setCost(Integer.parseInt(cost.getString()));
 			            
-			           FileItem quantity = (FileItem) items.get(6);
+			           FileItem quantity = (FileItem) items.get(7);
 			           bean.setQuantity(Integer.parseInt(quantity.getString()));
 			            
-			           /* System.out.println("Name"+bean.getName());
+			            System.out.println("Name"+bean.getName());
 			            System.out.println("Speci"+bean.getSpecification());
 			            System.out.println("Cos"+bean.getCost());
-			            System.out.println("Qua"+bean.getQuantity());*/
+			            System.out.println("Qua"+bean.getQuantity());
 
 			            // get uploaded file
-			            bean.setIcon((FileItem) items.get(0));
+			            bean.setIcon((FileItem) items.get(1));
 			            //FileItem file = (FileItem) items.get(0);
 			            d.addProduct(bean);  
 			            // Connect to Oracle

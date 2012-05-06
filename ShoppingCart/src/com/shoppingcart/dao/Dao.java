@@ -83,7 +83,7 @@ public class Dao {
             //con.setAutoCommit(false);
 
             pstmt = conn.prepareStatement(ShoppingcartSql.Insert_Product);
-            pstmt.setString(1, b.getName());
+            pstmt.setLong(1, b.getId());
             //pstmt.setString(2, phototitle);
             // size must be converted to int otherwise it results in error
             pstmt.setBinaryStream(2, b.getIcon().getInputStream(), (int) b.getIcon().getSize());

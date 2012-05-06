@@ -21,6 +21,10 @@
 				<td><input type="file" name="display"></td>
 			</tr>
 			<tr>
+				<td>Id</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr>
 				<td>Name</td>
 				<td><input type="text" name="name"></td>
 			</tr>
@@ -38,6 +42,7 @@
 		</table>
 		<br />
 		<br />
+		<a href="<%=request.getContextPath() %>/listphotos">List Photos </a>
 		<br /> <input type="submit" value="Submit">
 	</form>
 </body>

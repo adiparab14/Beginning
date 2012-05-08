@@ -1,5 +1,7 @@
 package com.shoppingcart.bean;
 
+import java.util.ArrayList;
+
 import org.apache.commons.fileupload.FileItem;
 
 public class ProductBean {
@@ -11,7 +13,14 @@ public class ProductBean {
 	int quantity;
 	double cost;
 	int id ;
+	private ArrayList<ProductBean> products;
 	
+	public ArrayList<ProductBean> getProducts() {
+		return products;
+	}
+	public void setProducts(ArrayList<ProductBean> products) {
+		this.products = products;
+	}
 	public int getId() {
 		return id;
 	}

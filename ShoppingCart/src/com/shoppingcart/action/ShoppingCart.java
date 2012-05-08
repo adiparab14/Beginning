@@ -100,9 +100,11 @@ public class ShoppingCart {
 
 	}
 	
-	public void retrieveProducts()
+	public void listProducts(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, SQLException
 	{
-		
+		Dao d = new Dao();
+		ProductBean ProductList = d.listProducts();
+		request.setAttribute("ProductList",ProductList);
 	}
 	
 	

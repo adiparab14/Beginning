@@ -1,6 +1,7 @@
 package com.shoppingcart.dao;
 
 import java.io.InputStream;
+
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Blob;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.io.PrintWriter;
 
 import org.apache.catalina.connector.Request;
@@ -87,6 +89,10 @@ public class Dao {
             //pstmt.setString(2, phototitle);
             // size must be converted to int otherwise it results in error
             pstmt.setBinaryStream(2, b.getIcon().getInputStream(), (int) b.getIcon().getSize());
+            pstmt.setString(3, b.getName());
+            pstmt.setString(4,b.getSpecification());
+            pstmt.setLong(5, (long) b.getCost());
+            pstmt.setLong(6, b.getQuantity());
             pstmt.executeUpdate();
             //con.commit();
             //con.close();
@@ -155,6 +161,46 @@ public class Dao {
 		}
 		
 		return b1;
+	}
+	
+	public ProductBean listProducts()  throws SQLException,NullPointerException
+	{
+		ConnectionDtls connDtls = DBConnection.getConnection();
+		Connection conn = connDtls.getConn();
+		PreparedStatement pstmt = null;	
+		ProductBean bean =new ProductBean();
+		try {
+			pstmt = conn.prepareStatement(ShoppingcartSql.Select_ListProducts);
+			ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean b = new ProductBean();
+				b.setName(rs.getString("name"));
+				products.add(b);
+			}
+			bean.setProducts(products);
+			
+		}
+		catch(SQLException sqle){
+			sqle.printStackTrace();
+		}
+		catch(NullPointerException e)
+		{
+			
+			e.printStackTrace();
+		}
+		
+		catch(Exception e)
+		{
+			
+			e.printStackTrace();
+		}
+		finally{
+			DBConnection.close(pstmt, conn);
+		}
+		
+		return bean;
 	}
 
 }

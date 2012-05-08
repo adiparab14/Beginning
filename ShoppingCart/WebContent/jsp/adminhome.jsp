@@ -18,7 +18,7 @@ if(message!=null)
 <br /><br /><br /><br /><br /><br />
 <div id="center">
 <a href="<%=request.getContextPath()%>/jsp/addproduct.jsp">Add Product</a>&nbsp;<br />
-<a href="">Edit Product Information</a>
+<a href="<%=request.getContextPath()%>/Controller?work=listview">Edit Product Information</a>
 </div>
 </body>
 </html>

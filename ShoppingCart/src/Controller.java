@@ -65,13 +65,33 @@ public class Controller extends HttpServlet {
 		//System.out.println(work);
 		//System.out.println(request.getParameter("username"));
 		//System.out.println(request.getParameter("password"));
+		if(work.equals("updateProduct"))
+			
+		{
+			s.updateProduct(request,response);
+		}
+		
+		if(work.equals("singleProductView"))
+		{
+			
+			//System.out.println("A"+id);
+			try {
+				s.singleProductEdit(request, response);
+				request.getRequestDispatcher("/jsp/editproductinfo.jsp").forward(request, response);
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		if(work.equals("listview"))
 		{
 			
 			try {
 				s.listProducts(request, response);
-				System.out.println("list");
 				request.getRequestDispatcher("/jsp/editproducts.jsp").forward(request, response);
 			} catch (NullPointerException e) {
 				// TODO Auto-generated catch block

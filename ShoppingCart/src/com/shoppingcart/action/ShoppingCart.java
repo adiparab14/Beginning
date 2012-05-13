@@ -1,6 +1,5 @@
 package com.shoppingcart.action;
 
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -16,11 +14,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.shoppingcart.bean.AdminBean;
 import com.shoppingcart.bean.ProductBean;
 import com.shoppingcart.dao.Dao;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 
 public class ShoppingCart {
 
@@ -68,7 +61,7 @@ public class ShoppingCart {
 			            bean.setSpecification(specification.getString());
 			            
 			            FileItem cost = (FileItem) items.get(6);
-			            bean.setCost(Integer.parseInt(cost.getString()));
+			            bean.setCost(Double.parseDouble(cost.getString()));
 			            
 			           FileItem quantity = (FileItem) items.get(7);
 			           bean.setQuantity(Integer.parseInt(quantity.getString()));
@@ -105,6 +98,28 @@ public class ShoppingCart {
 		Dao d = new Dao();
 		ProductBean ProductList = d.listProducts();
 		request.setAttribute("ProductList",ProductList);
+	}
+
+	public void singleProductEdit(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, SQLException {
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(request.getParameter("product_id"));
+		Dao d = new Dao();
+		ProductBean singleProduct = d.singleProductEdit(id);
+		request.setAttribute("singleProduct",singleProduct);
+	}
+
+	public void updateProduct(HttpServletRequest request,
+			HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		Dao d = new Dao();
+		ProductBean bean = new ProductBean();
+		bean.setName(request.getParameter("name"));
+		bean.setCost(Double.parseDouble(request.getParameter("cost")));
+		bean.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+		bean.setId(Integer.parseInt(request.getParameter("id")));
+		bean.setSpecification(request.getParameter("speci"));
+		//System.out.println(bean.getName());
+		d.updateProduct(bean);
 	}
 	
 	

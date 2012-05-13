@@ -8,5 +8,10 @@ public interface ShoppingcartSql {
 	
 	String Select_Product="SELECT ICOM,ID FROM PRODUCTS WHERE ID=?";
 	
-	String Select_ListProducts="Select NAME FROM PRODUCTS";
+	String Select_ListProducts="Select NAME,ID FROM PRODUCTS";
+
+	String Select_SingleProduct = "Select NAME,ID,COST,QUANTITY,SPECIFICATIONS FROM PRODUCTS WHERE ID=?";
+
+	String Update_SingleProduct = "Update PRODUCTS SET NAME=?, COST=?, Quantity=?, SPECIFICATIONS=? "+
+									"WHERE ID=?";
 }

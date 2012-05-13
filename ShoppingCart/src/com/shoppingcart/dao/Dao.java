@@ -1,20 +1,11 @@
 package com.shoppingcart.dao;
 
-import java.io.InputStream;
-
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.io.PrintWriter;
-
-import org.apache.catalina.connector.Request;
-import org.apache.commons.fileupload.FileItem;
-
 import com.shoppingcart.bean.AdminBean;
 import com.shoppingcart.bean.ProductBean;
 import com.shoppingcart.util.*;
@@ -176,6 +167,10 @@ public class Dao {
 			
 			while(rs.next()) {
 				ProductBean b = new ProductBean();
+				b.setId(rs.getInt("id"));
+				//b.setSpecification(rs.getString("specifications"));
+				//b.setCost(rs.getDouble("cost"));
+				//b.setQuantity(rs.getInt("quantity"));
 				b.setName(rs.getString("name"));
 				products.add(b);
 			}
@@ -201,6 +196,97 @@ public class Dao {
 		}
 		
 		return bean;
+	}
+
+
+	public ProductBean singleProductEdit(int id)throws SQLException,NullPointerException
+	{
+		// TODO Auto-generated method stub
+		
+		ConnectionDtls connDtls = DBConnection.getConnection();
+		Connection conn = connDtls.getConn();
+		PreparedStatement pstmt = null;	
+		ProductBean bean =new ProductBean();
+		try {
+			pstmt = conn.prepareStatement(ShoppingcartSql.Select_SingleProduct);
+			ArrayList<ProductBean> products = new ArrayList<ProductBean>();
+			pstmt.setLong(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean b = new ProductBean();
+				b.setId(rs.getInt("id"));
+				b.setSpecification(rs.getString("specifications"));
+				b.setCost(rs.getDouble("cost"));
+				b.setQuantity(rs.getInt("quantity"));
+				b.setName(rs.getString("name"));
+				products.add(b);
+			}
+			bean.setProducts(products);
+			
+		}
+		catch(SQLException sqle){
+			sqle.printStackTrace();
+		}
+		catch(NullPointerException e)
+		{
+			
+			e.printStackTrace();
+		}
+		
+		catch(Exception e)
+		{
+			
+			e.printStackTrace();
+		}
+		finally{
+			DBConnection.close(pstmt, conn);
+		}
+		
+		return bean;
+		
+	}
+
+
+	public void updateProduct(ProductBean bean) {
+		// TODO Auto-generated method stub
+		
+		ConnectionDtls connDtls = DBConnection.getConnection();
+		Connection conn = connDtls.getConn();
+		PreparedStatement pstmt = null;	
+		//ProductBean bean =new ProductBean();
+		try {
+			pstmt = conn.prepareStatement(ShoppingcartSql.Update_SingleProduct);
+			pstmt.setString(1, bean.getName());
+			pstmt.setDouble(2, bean.getCost());
+			pstmt.setInt(3, bean.getQuantity());
+			pstmt.setString(4, bean.getSpecification());
+			pstmt.setInt(5, bean.getId());
+			pstmt.executeUpdate();
+			
+			
+			
+		}
+		catch(SQLException sqle){
+			sqle.printStackTrace();
+		}
+		catch(NullPointerException e)
+		{
+			
+			e.printStackTrace();
+		}
+		
+		catch(Exception e)
+		{
+			
+			e.printStackTrace();
+		}
+		finally{
+			DBConnection.close(pstmt, conn);
+		}
+		
+		//return bean;
+		
 	}
 
 }

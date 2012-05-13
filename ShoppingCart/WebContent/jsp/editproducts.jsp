@@ -9,14 +9,19 @@
 <title>Edit Products</title>
 </head>
 <body>
+<table>
+<tr>
 <%ProductBean ProductList= (ProductBean)request.getAttribute("ProductList");
 ArrayList<ProductBean> prodList = ProductList.getProducts();
 					int size = prodList.size();
 					if(size > 0){
 						for (int i = 0; i < size; i++) 
 						{
-							%><p><%prodList.get(i).getName();%></p>
-							
+							out.println();
+							%>
+							<td><a href="<%=request.getContextPath() %>/Controller?work=singleProductView&product_id=<%=prodList.get(i).getId()%>"><%=prodList.get(i).getName()%></a></td>
 							<% }}%>		
+</tr>							
+							</table>
 </body>
 </html>
